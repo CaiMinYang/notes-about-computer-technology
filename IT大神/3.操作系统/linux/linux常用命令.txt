@@ -1,0 +1,249 @@
+文件处理命令
+-
+-
+-
+-
+-
+ls -a    所有文件(包括隐藏)
+    -l    long长信息
+    -h  long长信息，kb为单位
+    -d   单个文件的长信息
+    -i     所有文件以及序号
+
+mkdir  -p  递归创建
+pwd 显示当前路径
+cd 。
+     。。 
+rmdir  删除空文件
+
+
+cp 
+cp -r  拷贝整个目录
+     -p  复制并保存属性
+
+
+mv 剪切(可多个操作，可改名)
+
+rm -r 删除单文件或目录
+     -f 强制执行
+     -rf 强制删除
+
+
+touch 创建执行文件
+          'file1 file2'多个路径(创建多个文件）
+
+cat 查看文件
+-n   详细查看，列出行号
+tac 倒序显示文件
+
+more 完整显示文件 space翻页 enter换行 q退出
+less  完整显示文件 方向键可翻页   可搜索 /    /搜索状态下    n下一行 b上一页 
+
+head 
+-n 指定行数
+-f动态显示文件末尾内容 
+
+tail 
+-n指定行数
+-f动态显示文件末尾内容
+
+ln
+ -l 软链接
+    硬链接   i节点与源文件一致，所有用户具有权限，与原文件同步更新，原文件丢失，可作为备份 ，不可跨分区
+
+chmod 更改文件权限
+{[rgoa],[+-=],[rwx]}   管理员类型  权限操作  什么权限
+数字 文件路径     r 4  w 2  x 1      三位数字        chmod u=rwx /etc/yum.conf chmod  g+x /etc/yum.conf
+-R 递归修改(目录下所有文件)
+是否有删除目录的权限基于用户是否对父目录有写权限
+r与x一般成对存在
+
+
+更改文件所有者
+chown  username filename 
+chgrp    grpname filename
+
+umask 显示新建文件的权限 
+           新创建的文件会去除可执行权限
+    -S 查看新建文件的缺省授权
+
+-
+-
+-
+-
+搜索工具
+-
+-
+find 
+[目录] [方法] [关键字]    
+方法: -name  关键字  (只有关键字)  -exec  ls -l {} \; 找到后直接操作
+                                                    -ok 询问操作
+                   *关键字*（包含关键字）
+                   关键字？？？ (某单个字符)
+        -iname  关键字(不区分大小写)
+        -size    +n 大于n个数据块 1数据块=512kb 100m = 102400kb = 204800数据块 
+                    -n 小于n个数据块
+
+        -user  caiminyang
+         -group
+         -amin        访问过
+         -mmin       内容更改过
+        -cmin  +x     x分钟外属性被修改过的文件 
+                    -x     x分钟之内
+        -type   f 
+                   d 
+                   l
+         -inum 31531 exec rm {} \;  可以找到硬链接(i结点值相同)
+
+         -size 条件一  -a   -size 条件二         -a同时满足
+         -size 条件一  -o   -size 条件二        -o满足其一
+
+文件库搜索
+locate 文件
+-i 不区分大小写
+
+whatis 
+apropos 只显示关键信息
+ 
+man 查看命令的文档，配置文件
+help  查看内置命令                             
+
+增加用户
+useradd
+密码
+passwd 
+
+用户信息(当前在线)
+who 
+w (详细登陆信息)   负载均衡值，资源占用时间
+
+
+-
+-
+-
+压缩命令
+-
+-
+- 
+.gz gzip压缩 gunzip解压 (只能压缩文件,会删除原文件) 
+.tar tar -cf 打包  -cvf打包并列出详情 -xf 解压
+.tar.gz   tar -zcf 打包并压缩  -zxf 打包并解压
+.zip zip unzip  保留原文件
+.bz2-k bzip2 bunzip2
+.tar.bz2 tar -cjf生成压缩包    -xjf解压
+
+
+zip
+
+
+-
+-
+-
+-
+网络命令
+-
+-
+-
+-
+write 用户（写信）
+wall 广播
+
+ping 
+-c 指定命令
+ifconfig
+
+邮件命令
+mail user 
+mail 读取 (d 删除)
+
+last 查看用户登陆时间‘
+lastlog 最后一次登陆信息
+
+
+traceroute 查看路由节点
+
+netstat 查看网络信息 	
+-t tcp
+-u udp 
+-tlun 查看本机已开端口
+-an 所有监听信息
+-rn 查询路由列表
+
+setup 网络配置(防火墙 网管等)  配置之后重启 service network restart
+ 
+挂载mount  卸载umount
+-t
+
+mount -t iso9600 设备路径 挂在点
+-
+-
+-
+-
+-
+-
+关机重启
+-
+-
+-
+-
+-shutdown -h关机   
+                  -r重启
+                  -c取消
+                            now    
+                            20：30
+                            5
+reboot      |        init 6   重启
+runlevel 查看运行
+logout 退出登陆
+
+-
+-
+-
+-
+-文本编辑
+-
+-
+-
+-
+vim  插入模式 i a o                                        回命令模式 esc                          编辑模式
+       定位:set nu    :n
+       删除：x  nx  光标后字符  dd   ndd 光标后行
+       复制和剪切    yy-p  dd-p
+       替换和恢复   r/R   u(ctrl z)
+       搜索替换 :n,m/替换前/替换后
+       退出：wq(保存) ZZ（不保存） ：q！
+
+       进入 vi     退出 wq
+       结束 回车
+
+vim技巧
+:r 文件名 导入文件内容 !date 导入date的结果
+:ab 单词a 单词b 
+- 
+-
+-
+-
+-
+-
+软件包管理
+-
+-
+-
+-
+-
+-软件包分类  源代码包(c语言)
+                   二进制包(编译后)   RPM(centos中的二进制包)
+
+
+rpm安装
+rpm -ivh  (安装，信息，进度) + 包全名
+       -Uvh 
+       -e   卸载
+       -a   查寻  
+       -p   查询未安装包
+       -ql   包安装位置  
+       -qf  文件所属包
+       -qR 查看依赖(已安装)
+       -qRP 查看依赖(未安装)
+       -cpio 回复误删除命令          {rpm2cpio /mnt/cdrom/Packages/coreutils *** | \ cpio -idv ./bin/ls}
+      -V校验已安装包是否改动
